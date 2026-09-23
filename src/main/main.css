@@ -1,0 +1,205 @@
+@font-face {
+    font-family: Jura;
+    src: url("../fonts/Jura/Jura-Light.ttf");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: Jura;
+    src: url("../fonts/Jura/Jura-SemiBold.ttf");
+    font-weight: bold;
+}
+
+
+body {
+    width: 100vw;
+    height: 100vh;
+
+    margin: 0;
+
+    /* background: linear-gradient(#0005 0, transparent 100%); */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+* {
+    box-sizing: border-box;
+
+    font-family: Jura, Segoe UI;
+    line-height: 1;
+    font-weight: normal;
+    color: #fff;
+    /* text-shadow: 1px 1px 1px #0008; */
+
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+
+#app {
+    width: 100%;
+    height: 100%;
+
+    padding: 10px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+#left-stats-container,
+#right-stats-container {
+    width: fit-content;
+    height: 36px;
+
+    padding: 0 8px;
+
+    background-color: #0008;
+    border-radius: 12px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    transition: translate cubic-bezier(0, 0.5, 0, 1) 400ms;
+}
+
+#left-stats-container[hidden] {
+    translate: -1000px;
+    transition: translate cubic-bezier(1, -0.3, 1, 0.3) 400ms;
+}
+
+#right-stats-container[hidden] {
+    translate: 1000px;
+    transition: translate cubic-bezier(1, -0.3, 1, 0.3) 400ms;
+}
+
+
+.separator {
+    width: 1px;
+    height: 15px;
+
+    margin-right: 2px;
+
+    background-color: #fff4;
+}
+
+.device {
+    width: fit-content;
+    height: fit-content;
+
+    padding: 0 3px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
+.data {
+    width: 35px;
+
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    text-align: left;
+
+    display: flex;
+    justify-content: left;
+    align-items: baseline;
+    gap: 3px;
+}
+
+.data#fps-count {
+    width: 30px;
+}
+
+.data#net-download,
+.data#net-upload {
+    width: 60px;
+}
+
+.data[fan-available="false"] {
+    display: none;
+}
+
+.data>div {
+    position: relative;
+    bottom: 0;
+
+    font-size: 12px;
+    letter-spacing: 0.05em;
+}
+
+.title {
+    font-size: 8.5px;
+    letter-spacing: 0.1em;
+    color: #fffa;
+    text-align: left;
+}
+
+.multiple-data-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+
+/* animazioni */
+.device-animated-icon {
+    width: 20px;
+    aspect-ratio: 1/1;
+
+    background: no-repeat 0 0 / 20px 120px;
+    animation: animate-6-frames steps(6) infinite;
+}
+
+div#net-stats>.device-animated-icon {
+    background: url("../icons/net_sprite.png");
+    animation-duration: calc(150ms * 6);
+}
+
+div#fps-stats>.device-animated-icon {
+    background: url("../icons/fps_sprite.png");
+    animation-duration: calc(150ms * 6);
+}
+
+div#cpu-stats>.device-animated-icon {
+    background: url("../icons/cpu_sprite.png");
+    animation-duration: calc(150ms * 6);
+}
+
+div#ram-stats>.device-animated-icon {
+    background: url("../icons/ram_sprite.png");
+    animation-duration: calc(150ms * 6);
+}
+
+div#gpu-stats>.device-animated-icon {
+    background: url("../icons/gpu_sprite.png");
+    animation-duration: calc(50ms * 6);
+}
+
+@keyframes animate-6-frames {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 0 -120px;
+    }
+}

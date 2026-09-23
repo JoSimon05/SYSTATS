@@ -1,0 +1,52 @@
+{
+	"$schema": "https://schema.tauri.app/config/2",
+	"productName": "SYSTATS",
+	"version": "1.0.0",
+	"identifier": "SYSTATS",
+	"build": {
+		"frontendDist": "../dist",
+		"devUrl": "http://localhost:5173",
+		"beforeDevCommand": "npm run dev",
+		"beforeBuildCommand": "npm run build"
+	},
+	"app": {
+		"windows": [
+			{
+				"label": "main",
+				"title": "SYSTATS",
+				"url": "src/main/main.html",
+				"x": 0,
+				"y": 0,
+				"width": 0,
+				"height": 0,
+				"decorations": false,
+				"shadow": false,
+				"transparent": true,
+				"resizable": false,
+				"maximizable": false,
+				"minimizable": false,
+				"fullscreen": false,
+				"closable": false,
+				"alwaysOnTop": true,
+				"focusable": false,
+				"focus": false,
+				"skipTaskbar": true,
+				"visible": false,
+				"additionalBrowserArgs": "--disable-gpu"
+			}
+		],
+		"security": {
+			"csp": null
+		}
+	},
+	"bundle": {
+		"active": false,
+		"targets": "all",
+		"icon": [
+			"icons/icon.ico"
+		],
+		"android": {
+			"debugApplicationIdSuffix": ".debug"
+		}
+	}
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="main.css">
+
+    <title>systats</title>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <div id="left-stats-container" hidden>
+
+            <div id="net-stats" class="device">
+
+                <!-- <img src="../icons/net.png" class="device-icon"> -->
+                <div class="device-animated-icon"></div>
+
+                <div id="net-download-container" class="container">
+                    <div id="net-download-title" class="title">DOWN</div>
+                    <div id="net-download" class="data">0</div>
+                </div>
+
+                <div id="net-upload-container" class="container">
+                    <div id="net-upload-title" class="title">UP</div>
+                    <div id="net-upload" class="data">0</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="right-stats-container" hidden>
+
+            <div id="fps-stats" class="device">
+
+                <!-- <img src="../icons/fps.png" class="device-icon"> -->
+                <div class="device-animated-icon"></div>
+
+                <div id="fps-count-container" class="container">
+                    <div id="fps-count-title" class="title">FPS</div>
+                    <div id="fps-count" class="data">0</div>
+                </div>
+            </div>
+
+            <div class="separator"></div>
+
+            <div id="cpu-stats" class="device">
+
+                <!-- <img src="../icons/cpu.png" class="device-icon"> -->
+                <div class="device-animated-icon"></div>
+
+                <div id="cpu-usage-container" class="container">
+                    <div id="cpu-usage-title" class="title">CPU</div>
+                    <div id="cpu-usage" class="data">0</div>
+                </div>
+            </div>
+
+            <div class="separator"></div>
+
+            <div id="ram-stats" class="device">
+
+                <!-- <img src="../icons/ram.png" class="device-icon"> -->
+                <div class="device-animated-icon"></div>
+
+                <div id="ram-container" class="container">
+                    <div id="ram-title" class="title">RAM</div>
+                    <div id="ram" class="data">0</div>
+                </div>
+            </div>
+
+            <div class="separator"></div>
+
+            <div id="gpu-stats" class="device">
+
+                <!-- <img src="../icons/gpu.gif" class="device-icon"> -->
+                <div class="device-animated-icon"></div>
+
+                <div id="gpu-memory-container" class="container">
+                    <div id="gpu-memory-title" class="title">GPU</div>
+                    <div id="gpu-memory" class="data">0</div>
+                </div>
+
+                <div id="gpu-temp-container" class="container">
+                    <div id="gpu-temp-title" class="title">TEMP</div>
+                    <div id="gpu-temp" class="data">0</div>
+                </div>
+
+                <div id="gpu-fan-speed-container" class="container">
+                    <div id="gpu-fan-speed-title" class="title">FANS</div>
+                    <div class="multiple-data-container">
+                        <div id="gpu-fan-speed-0" class="data">0</div>
+                        <div id="gpu-fan-speed-1" class="data">0</div>
+                        <div id="gpu-fan-speed-2" class="data">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>
