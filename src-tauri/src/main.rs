@@ -58,6 +58,11 @@ impl GraphicsCaptureApiHandler for FPSCounter {
         })
     }
 
+    fn on_closed(&mut self) -> Result<(), Self::Error> {
+        println!("sessione FPS chiusa");
+        Ok(())
+    }
+
     fn on_frame_arrived(
         &mut self,
         _frame: &mut Frame,
@@ -74,7 +79,11 @@ impl GraphicsCaptureApiHandler for FPSCounter {
 
         if self.last_check.elapsed() >= Duration::from_secs(1) {
             let fps = self.frame_count as f64 / self.last_check.elapsed().as_secs_f64();
-            let _ = self.app.emit("on_fps_measured", fps);
+
+            if self.app.emit("on_fps_measured", fps).is_err() {
+                capture_control.stop();
+            }
+
             self.frame_count = 0;
             self.last_check = Instant::now();
         }
@@ -141,12 +150,12 @@ fn start_network_speed_measurement(app: AppHandle) {
     if IS_MEASURING_NETWORK_SPEED.swap(true, SeqCst) {
         return;
     }
-    
+
     std::thread::spawn(move || {
         let mut networks = Networks::new_with_refreshed_list();
-        
+
         let mut last_check = Instant::now();
-        
+
         loop {
             std::thread::sleep(Duration::from_millis(1000));
             networks.refresh(true);
@@ -186,23 +195,37 @@ fn start_fps_measurement(app: AppHandle) {
         return;
     }
 
-    std::thread::spawn(move || loop {
-        if let Ok(window) = Window::foreground() {
-            let settings = Settings::new(
-                window,
-                CursorCaptureSettings::WithoutCursor,
-                DrawBorderSettings::WithoutBorder,
-                SecondaryWindowSettings::Exclude,
-                MinimumUpdateIntervalSettings::Custom(Duration::from_millis(1)),
-                DirtyRegionSettings::Default,
-                ColorFormat::Rgba8,
-                app.clone(),
-            );
+    std::thread::spawn(move || {
+        let mut last_cycle_time = Instant::now();
 
-            let _ = FPSCounter::start(settings);
+        loop {
+            // verifica se in sleep
+            if last_cycle_time.elapsed() > Duration::from_secs(10) {
+                std::thread::sleep(Duration::from_secs(2)); //? pausa per reset del DWM
+            }
+
+            last_cycle_time = Instant::now();
+
+            if let Ok(window) = Window::foreground() {
+                let settings = Settings::new(
+                    window,
+                    CursorCaptureSettings::WithoutCursor,
+                    DrawBorderSettings::WithoutBorder,
+                    SecondaryWindowSettings::Exclude,
+                    MinimumUpdateIntervalSettings::Custom(Duration::from_millis(10)),
+                    DirtyRegionSettings::Default,
+                    ColorFormat::Rgba8,
+                    app.clone(),
+                );
+
+                if FPSCounter::start(settings).is_err() {
+                    std::thread::sleep(Duration::from_secs(2));
+                    continue;
+                }
+            }
+
+            std::thread::sleep(Duration::from_millis(500));
         }
-
-        std::thread::sleep(Duration::from_millis(200));
     });
 }
 
